@@ -10,7 +10,7 @@ function init() {
       $scope.artifactCaps = {};
       $scope.critss = 0;
       $scope.zerker = 0;
-      $scope.memory = 390;
+      $scope.memory = 0;
       $scope.mantissa = 5;
       $scope.exponent = 200;
 
@@ -168,6 +168,17 @@ function calculateCustomizations() {
 		wu = null;
 	}
     fillHeroWeaponUpgrades(wu);
+
+	var sml = getQueryParam("sml");
+	if(sml == "Not found") {
+		sml = 0;
+	}
+	$scope.memory = sml*2;
+
+    $scope.updateLevels();
+
+//    $scope.critss   = $rootScope.state.levelCrit;
+//    $scope.zerker   = $rootScope.state.levelTDMG;
 
     var tempC = cBonus.map(function(c) { return []; });
       for (var type in $scope.allCustomizations) {
@@ -384,3 +395,21 @@ function createTable() {
             body.appendChild(row);
         }
     }
+
+function updateLevels() {
+    $scope.totalCurrent = $scope.heroes.map(function(h) { return h.level[$rootScope.world]; }).reduce(function(a, b) { return a + b; }, 0);
+};
+
+
+
+//file:///E:/Android/Projects/ASWorkspace/MyProjects/TTHelper/WebApp/Customization%20Sequencer/index.html?
+//
+//c=0_0.0_14.0_2.0_3.0_6.0_1.0_4.0_5.1_0.1_9.1_1.1_3.1_2.1_11.1_8.1_4.1_5.1_6.1_10.2_0.2_3.2_1.2_2.2_4.2_8.2_16.3_0.3_901.3_902.3_903.3_904.3_905.3_906.3_907.3_19.3_3.3_4.3_30.3_26.3_1.3_13.3_5.3_15.3_20.3_14.4_0.4_1.4_2.4_3.4_4.4_7.4_8.4_9.5_0.5_1.5_2.5_3.5_5.5_4.5_8
+//
+//&a=8_10.9_10.6_10.7_10.19_328.4_25.5_25.17_295.2_60.3_25.18_250.15_140.16_182.13_170.14_228.11_10.12_182.10_10.28_10.29_309.24_25.25_5.26_101.27_220.20_112.21_85.22_232.23_10.39_0.62_0.63_0.61_6.33_0.34_0.37_0.38_0.35_0.36_5.67_6.66_6.65_0.69_0.50_0.51_0.52_7.42_10.43_0.45_0.46_0.49_6.40_0.1_250.54_0.56_0.55_2.58_0.57_0.59_0
+//
+//&h=19_0.17_0.18_0.33_0.15_0.16_0.13_0.14_0.11_0.12_0.21_0.20_0.22_0.23_0.24_0.25_0.26_0.27_0.28_0.29_0.3_464.2_528.10_0.1_613.30_0.7_0.6_0.32_0.5_0.31_0.4_0.9_0.8_0
+//
+//&wu=19_2.17_7.18_3.33_7.15_6.16_4.13_2.14_4.11_7.12_3.21_5.20_3.22_4.23_3.24_7.25_6.26_2.27_2.28_6.29_3.3_3.2_6.10_7.1_3.30_4.7_8.6_6.32_4.5_8.31_4.4_6.9_6.8_6
+//
+//&sml=852
